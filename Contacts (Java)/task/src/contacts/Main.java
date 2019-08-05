@@ -52,7 +52,6 @@ public class Main {
         String act;
 
         do{
-            //System.out.println("[list] Enter action (add, remove, edit, count, info, search, exit):");
             System.out.println("[menu] Enter action (add, list, search, count, exit): ");
             act = scn.nextLine();
             switch (act) {
@@ -142,12 +141,9 @@ public class Main {
                             break;
                         }
                         else if(strInt.equals("again")){
-                            //listapp.search();
-                            //System.out.println();
                             lCnt = app.search();
                             System.out.println();
                             System.out.println("[search] Enter action ([number], back, again): ");
-                            //System.out.println("[search] Enter action ([number], back, again): ");
                             continue;
                         }
                         else {
@@ -212,22 +208,6 @@ class Application implements Serializable {
         return this.listContacts.size();
     }
 
-    /*    public void  getContactInfo() {
-            if (this.listContacts.size() == 0) {
-                System.out.println("No records to list!");
-            } else {
-                this.getContactsList();
-                Scanner scn = new Scanner(System.in);
-                System.out.print("Enter index to show info: ");
-                int recNum = scn.nextInt();
-
-                Contact cnt = listContacts.get(recNum - 1);
-                for (String str : cnt.allFieldsForChange().keySet()) {
-                    System.out.println(cnt.allFieldsForChange().get(str) + ": " + cnt.getFieldVal(str));
-                }
-
-            }
-        }*/
     public void  getContactInfo(int recNum) {
         if (this.listContacts.size() == 0) {
             System.out.println("No records to list!");
@@ -265,45 +245,6 @@ class Application implements Serializable {
         }
     }
 
-
-    /*   public void editContact(){
-           if(this.listContacts.size()==0) {
-               System.out.println("No records to edit!");
-           }
-           else{
-               this.getContactsList();
-               Scanner scn = new Scanner(System.in);
-               System.out.print("Select a record: ");
-               int recNum = Integer.parseInt(scn.nextLine());
-
-               Contact cnt =listContacts.get(recNum - 1);
-
-               Object[] strShName = cnt.allFieldsForChange().keySet().toArray();
-               System.out.println("Select a field ("+ Arrays.toString(strShName).replace("[","").replace("]","")+")");
-
-               String field = scn.nextLine();
-
-               System.out.println("Enter "+cnt.allFieldsForChange().get(field).toLowerCase()+" :");
-
-               cnt.setFieldVal(field,scn.nextLine());
-
-               System.out.println("The record updated!");
-           }
-       }
-   */
-   /* public void removeContact(){
-        if(this.listContacts.size()==0) {
-            System.out.println("No records to remove!");
-        }
-        else{
-            Scanner scn = new Scanner (System.in);
-            this.getContactsList();
-            System.out.print("Select a record :");
-            int recNum = scn.nextInt();
-            listContacts.remove(recNum-1);
-            System.out.println("The record removed!");
-        }
-    }*/
     public void removeContact(int recNum){
         if(this.listContacts.size()==0) {
             System.out.println("No records to remove!");
@@ -387,15 +328,10 @@ class Application implements Serializable {
 
         for(Contact cnt:listContacts){
             for (String str : cnt.allFieldsForChange().keySet()) {
-                /*if (cnt.getFieldVal(str).toLowerCase().contains(strSearch.toLowerCase())){
-                    System.out.println(i+". "+cnt.getFullName());
-                    break;
-                }*/
                 Matcher mat = pat.matcher(cnt.getFieldVal(str).toLowerCase());
 
                 if(mat.find()){
                     lInt.add(listContacts.indexOf(cnt));
-                    //System.out.println(i+". " + cnt.getFullName());
                     break;
                 }
             }
@@ -492,16 +428,6 @@ abstract class Contact implements Serializable{
         return timeModified;
     }
 
- /*   public boolean isPerson() {
-        return isPerson;
-    }
-
-    public void setPerson(boolean person) {
-        isPerson = person;
-    }*/
-
-
-    //abstract String[] allFieldsForChange();
     abstract Map<String,String> allFieldsForChange();
     abstract void setFieldVal(String fName, String newVal);
     abstract String getFieldVal(String fName);
